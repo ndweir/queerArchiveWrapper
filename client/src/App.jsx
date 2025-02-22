@@ -1,14 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import ResourceCard from './components/ResourceCard';
 
-const API_URL = 'http://localhost:3001/api/resources';
+const hardcodedResources = [
+  {
+    identifier: 'hrtcafe-1',
+    title: 'HRT Cafe',
+    creator: 'HRTCafe',
+    description: `Welcome to HRTCafe.net! We hope you enjoy your stay here.`,
+    mediatype: 'text',
+    url: 'https://hrtcafe.net/',
+    collection: '2-3-23'
+  },
+  {
+    identifier: 'trevorproject-1',
+    title: 'The Trevor Project',
+    creator: 'Trevor Project',
+    description: `The Trevor Project is the leading suicide prevention and crisis intervention nonprofit organization for LGBTQ+ young people. We provide information & support to LGBTQ+ young people 24/7, all year round.`,
+    mediatype: 'text',
+    url: 'https://www.thetrevorproject.org/',
+    collection: '6-8-2007'
+  },
+  {
+    identifier: 'glaad-1',
+    title: 'GLAAD',
+    creator: 'GLAAD',
+    description: `Leading the conversation. Shaping the media narrative. Changing the culture. That’s GLAAD at work.`,
+    mediatype: 'text',
+    url: 'https://glaad.org/',
+    collection: '9-10-2025'
+  },
+  {
+    identifier: 'out-1',
+    title: 'Out',
+    creator: 'Out',
+    description: `Out is an American LGBTQ news, fashion, entertainment, and lifestyle magazine, with the highest circulation of any LGBTQ monthly publication in the United States.`,
+    mediatype: 'text',
+    url: 'https://www.out.com/gay-news',
+    collection: '12-2-2001'
+  },
+  {
+    identifier: 'lgbtqnation-1',
+    title: 'LGBTQ Nation',
+    creator: 'LGBTQ Nation',
+    description: 'Description for LGBTQ Nation Article 1',
+    mediatype: 'text',
+    url: 'https://www.lgbtqnation.com/',
+    collection: '7-7-1776'
+  },
+  {
+    identifier: 'pride-1',
+    title: 'Pride',
+    creator: 'Pride',
+    description: `Pride.com is the socially-driven epicenter of original video, photography and editorial, where all young LGBTQ+ people can find stories to share and connect with people like them.`,
+    mediatype: 'text',
+    url: 'https://www.pride.com/',
+    collection: '4-4-2097'
+  }
+];
 
 export default function App() {
   const [resources, setResources] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -17,9 +71,9 @@ export default function App() {
       try {
         setLoading(true);
         setError(null);
-        const { data } = await axios.get(`${API_URL}?page=${page}`);
-        setResources(data.results);
-        setTotalPages(Math.ceil(data.totalFound / 10));
+        // Use hardcoded data instead of fetching from API
+        setResources(hardcodedResources);
+        setTotalPages(1);
       } catch (err) {
         setError('Failed to fetch resources. Please try again later.');
         console.error('Error:', err);
